@@ -1,0 +1,23 @@
+[
+    {
+        "item": "Kreatív",
+        "discount": "10%",
+        "func":"getKreativ()"
+    },
+    {
+        "item": "Élelmiszer",
+        "discount": "20%"
+    },
+    {
+        "item": "Medicalonline",
+        "discount": "12%"
+    },
+    {
+        "item": "Turizmusonline",
+        "discount": "5%"
+    },
+    {
+        "item": "Cikk",
+        "discount": "15%"
+    }
+]

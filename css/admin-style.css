@@ -1,0 +1,18 @@
+/*CSS file*/
+
+.navigation{
+    background: #10AAC0;
+}
+
+.menu{
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.menuitems a{
+    color: #fff;
+}
+
+.resutl ul{
+	list-style-type: none;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+    <head>
+        <title>Admin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/admin-style.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+
+        <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-load/angular-load.min.js" type="text/javascript"></script>
+    
+        <script src="app/app.module.js" type="text/javascript"></script>
+        <script src="js/common.js" type="text/javascript"></script>
+        <script src="app/Controller/admin.controller.js" type="text/javascript"></script>
+        <script src="app/Config/config.js" type="text/javascript"></script>
+        <script src="app/Controller/users.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/newsletter.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/promise.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/article.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/offer.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/adduser.controller.js" type="text/javascript"></script>
+
+        <!-- Factory -->        
+        <script src="app/Factory/load.factory.js" type="text/javascript"></script>
+        
+        <!--Services-->
+        <script src="app/Services/users.service.js" type="text/javascript"></script>
+        <script src="app/Services/discount.service.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="row">    
+            <div ng-controller="admin" data-ng-init="getMenu()">
+                <div class="col-md-2 navigation">
+                    <ul class="menu">
+                        <li class="menuitems" ><!-- ng-repeat="elem in menuelements" -->
+                            <!--<menu-item ng-click="{{menu.func}}" info="{{menu.func}}">{{menu.menuItem}}</menu-item>-->
+                        <user-item ></user-item>
+                        </li> 
+                        <li>                    
+                        <news-item ></news-item>
+                        </li>
+                        <li>                    
+                        <offer-item ></offer-item>
+                        </li>
+                        <li ng-click="getDiscounts();">                    
+                            Discounts
+                        </li>
+                        <li ng-click="getAddUser();userTemplate(); ">
+                            Add User
+                        </li>
+                        <promise-item></promise-item>
+                    </ul>                 
+                </div>
+
+                <div class="col-md-8 result">
+
+                    <ul>
+                        <li ng-repeat="user in users">
+                            {{user.name}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-view></div>
+             </div>
+            </div>
+        
+
+            <!--
+            <div class="row">
+                    <div class="col-md-2 navigation">
+                        <div ng-controller="promiseController" ng-init="loadData(); prepData();">
+                            <ul class="menu">
+                                    <li class="menuitems" ng-click="">
+                                        {{menuitem}}                    
+                                    </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+            <div class="row">
+                        <div ng-controller="articleController" >
+                        <div class="col-md-2 navigation">
+                            <ul class="menu">
+                                    <li class="menuitems" ng-click="showArticle();">
+                                        Cikk                    
+                                    </li>
+                            </ul>
+            
+                    </div>
+                            <div class="col-md-8">            
+                                    <div ng-repeat="article in articles">
+                                        <my-article info="article.name"></my-article>
+                                    </div>
+                            </div>
+                        </div>
+                </div>-->
+    </body>
+</html>

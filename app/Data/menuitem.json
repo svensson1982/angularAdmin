@@ -1,0 +1,27 @@
+[
+    {
+        "menuItem": "Felhasználók",
+        "url": "users",
+        "func": "getUsers();"
+    },
+    {
+        "menuItem": "Hírlevél",
+        "url": "newsletter",
+        "func": "getNews();"
+    },
+    {
+        "menuItem": "Galériák",
+        "url": "gallery",
+        "func": "getGallery();"
+    },
+    {
+        "menuItem": "Oldalak",
+        "url": "sites",
+        "func": "getSites();"
+    },
+    {
+        "menuItem": "Cikk",
+        "url": "article",
+        "func": "getArticle();"
+    }
+]

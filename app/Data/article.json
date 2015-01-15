@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Article_1",
+        "data": "2015-01-10",
+        "info": "article1"
+    },
+    {        
+        "name": "Article_2",
+        "data": "2015-01-12",
+        "info": "article2"
+    },
+    {        
+        "name": "Aricle_3",
+        "data": "2015-01-15",
+        "info": "article3"
+    }
+]
