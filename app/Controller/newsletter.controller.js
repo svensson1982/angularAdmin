@@ -16,18 +16,25 @@ angular.module('app')
             return{
                 restrict: 'E',
                 scope: {
-                    id: "=data-id",
-                    title: "=data-title"
+                    id: "@data-id",
+                    title: "@data-title"
                 },
                 replace: true,                
-                template: '<button class="btn btn-default btn-block">{{id.id}}</button>',
-                link: function (scope, element) {
+                template: function($scope, $element, attr){
+                    //scope.$watch(this,function(newValue, oldValue){
+                            $element.replaceWith(angular.element('<button class="btn btn-default btn-block">sdfgsdfg</button>'));
+                            //console.log(newValue);
+                    //});                  
+                    
+                },
+                link: function (scope, element, attr) {
                     element.on('click', function () {
                         console.log('clicked news');
                         scope.getDataBack();
                     });
                 }
             };
+            
         });
 
 newsletterController.$inject = ['$scope', '$http', 'loadFactory', 'newsletterFactory', '$location'];

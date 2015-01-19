@@ -43,9 +43,20 @@ div.newsletter-buttons{
    /* display: table-caption;*/
 }
 
+/*********** Top menu ***********/
+
+.top-menu{
+    height: 25px;
+    background: #222;
+}
+
 /*********** Result ***********/
 
 .loading{
     margin: 0px auto;
     width: 10%;
+}
+
+.result{
+    /*background: #ccc;*/
 }
