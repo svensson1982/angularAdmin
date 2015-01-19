@@ -1,5 +1,5 @@
 angular.module('app')
-        .config(function($locationProvider, $routeProvider) {                
+        .config(['$locationProvider','$routeProvider',function($locationProvider, $routeProvider) {                
               
            $routeProvider
                     .when('/users', {         
@@ -25,5 +25,5 @@ angular.module('app')
                     .otherwise({
                         redirectTo: "/"
                     });
-                   // $locationProvider.html5Mode(false);  
-        });
+                    //$locationProvider.html5Mode(true).hashPrefix();  
+        }]);

@@ -7,7 +7,7 @@ function loadFactory($document){
                 var container = $document.find('.result');
                 item.loadText = function () {  
                     container.empty();
-                    var load = angular.element('<div>Loading...</div>');
+                    var load = angular.element('<div class="loading"><img src="img/wheel.svg" alt="Loading..." /></div>');
                     container.append(load);
                 };
                 

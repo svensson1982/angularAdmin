@@ -1,18 +1,51 @@
 /*CSS file*/
 
 .navigation{
-    background: #10AAC0;
+    background: #222222;
+    min-height:400px;
 }
 
 .menu{
     list-style-type: none;
     cursor: pointer;
+    color: #ffffff;
 }
 
-.menuitems a{
+.menu li{
+    padding: 2px;
+    font-size: 14px;
+}
+
+.menuitems, .menuitems a{
     color: #fff;
 }
 
 .resutl ul{
 	list-style-type: none;
+}
+
+.loggedin-area {
+    height: 100px;
+}
+
+.loggedin-area img{
+    float: left;
+    margin-top: 20px;
+}
+.loggedin-area p{
+    float: left;
+    color: #fff;
+    padding-left: 20px;
+    padding-top: 50px;
+}
+
+div.newsletter-buttons{
+   /* display: table-caption;*/
+}
+
+/*********** Result ***********/
+
+.loading{
+    margin: 0px auto;
+    width: 10%;
 }

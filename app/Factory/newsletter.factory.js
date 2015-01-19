@@ -1,8 +1,22 @@
 angular.module('app')
-	.factory('NewsletterFactory',NewsletterFactory);
+        .factory('newsletterFactory', newsletterFactory);
 
-NewsletterFactory.$inject = [];
+newsletterFactory.$inject = ['$http'];
 
-function NewsletterFactory(){
-	
+function newsletterFactory($http) {
+    var item = {};
+    item.getDataBack = function (id) {
+        $http({
+            url: 'server/newsletter_data.php',
+            method: 'post',
+            data: {get_id: id}
+        }).success(function (resp, stat) {
+            //add-result for click
+            //loadFactory.addItem('<div class="newsletter-result"></div>');
+            console.log(resp + stat);
+        }).error(function (resp, stat) {
+            console.log(resp + stat);
+        });        
+    };
+    return item;
 }

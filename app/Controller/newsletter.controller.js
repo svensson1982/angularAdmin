@@ -11,52 +11,53 @@ angular.module('app')
                 },
                 template: "Hírlevél"
             };
+        })
+        .directive('newsletterTitle', function () {
+            return{
+                restrict: 'E',
+                scope: {
+                    id: "=data-id",
+                    title: "=data-title"
+                },
+                replace: true,                
+                template: '<button class="btn btn-default btn-block">{{id.id}}</button>',
+                link: function (scope, element) {
+                    element.on('click', function () {
+                        console.log('clicked news');
+                        scope.getDataBack();
+                    });
+                }
+            };
         });
 
-newsletterController.$inject = ['$scope', '$http', 'loadFactory', '$location'];
+newsletterController.$inject = ['$scope', '$http', 'loadFactory', 'newsletterFactory', '$location'];
 
-function newsletterController($scope, $http, loadFactory, $location) {
-    var fromJson = 'app/Data/newsletter.json';
-
+function newsletterController($scope, $http, loadFactory, newsletterFactory, $location) {
+  
+    //get data by id
+    $scope.getDataBack = newsletterFactory.getDataBack;
     $scope.getNews = function () {
         loadFactory.loadText();
         $location.path('/newsletter');
         $http({
-            url: fromJson,
-            method: 'post'
+            url: 'server/newsletter_title.php',
+            method: 'post',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function (response, status) {
             loadFactory.removeText();
-            loadFactory.addItem('<div class="newsletter-buttons"></div>');
-            
-            for (i in response) {
-                loadFactory.addItemTo('.newsletter-buttons', '<button class="btn btn-default" ng-click="getDataBack(' + response[i].id + ')">' + response[i].name + '</button>');
+            loadFactory.addItem('<div class="newsletter-buttons col-md-3"></div>');
+            for (var i in response.title) {
+                $scope.datas = {};
+                $scope.datas.id= response.id[i];
+                $scope.datas.title= response.title[i];
+                loadFactory.addItemTo('.newsletter-buttons', '<newsletter-title data-id="'+response.id[i]+'" data-title="'+response.title[i]+'"></newsletter-title>');
             }
+
         }).error(function (response, status) {
             console.log('resp: ' + response + " status: " + status);
         });
     };
 
-    $scope.getDataBack = function (item) {
-        loadFactory.loadText();
-        $http({
-            url: fromJson,
-            method: 'post'
-        }).success(function (response, status) {
-            loadFactory.removeText();
-            loadFactory.addItem('<div class="newsletter-data"><table></table></div>');
-
-            for (var i=0; i< response.length; i++) {
-                if(response[i].code == item){
-                    loadFactory.addItemTo('.newsletter-data table', '<tr><td>'+response[i].id + '</td><td>'+ response[i].name +'</td><tr>');
-                }
-                
-            }
-        }).error(function (response, status) {
-                console.log('response,status: '+response +" "+ status);
-        });
-
-        loadFactory.findItem('.newsletter-buttons');
-    };
 
 }
 
