@@ -9,6 +9,7 @@
     list-style-type: none;
     cursor: pointer;
     color: #ffffff;
+    margin-top: 40px;
 }
 
 .menu li{
@@ -35,8 +36,6 @@
 .loggedin-area p{
     float: left;
     color: #fff;
-    padding-left: 20px;
-    padding-top: 50px;
 }
 
 div.newsletter-buttons{
@@ -53,7 +52,7 @@ div.newsletter-buttons{
 /*********** Result ***********/
 
 .loading{
-    margin: 0px auto;
+    margin: 50px auto;
     width: 10%;
 }
 
