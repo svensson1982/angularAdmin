@@ -2,67 +2,63 @@ angular.module('app')
         .controller('newsletterController', newsletterController)
         .directive('newsItem', function () {
             return{
-                restrict: 'E',
+                restrict: 'EA',
                 link: function (scope, element) {
                     element.on('click', function () {
-                        console.log('clicked news');
                         scope.getNews();
                     });
                 },
                 template: "Hírlevél"
             };
         })
-        .directive('newsletterTitle', function () {
+        .directive('dynamic', function () {
             return{
-                restrict: 'E',
+                restrict: 'EA',
+                replace: true,
+                transclude: true,
                 scope: {
-                    id: "@data-id",
-                    title: "@data-title"
+                    dynamic: "=",
+                    id: '=',
+                    title: '='
                 },
-                replace: true,                
-                template: function($scope, $element, attr){
-                    //scope.$watch(this,function(newValue, oldValue){
-                            $element.replaceWith(angular.element('<button class="btn btn-default btn-block">sdfgsdfg</button>'));
-                            //console.log(newValue);
-                    //});                  
-                    
-                },
-                link: function (scope, element, attr) {
-                    element.on('click', function () {
-                        console.log('clicked news');
-                        scope.getDataBack();
+                link: function postLink(scope, element, attrs) {
+                    scope.$watch( function (newVal, oldVal) {
+                       /*angular.forEach(scope.title,function(val, key){                          
+                            console.log("dynamic2" + scope.title);
+                            element.html(val); 
+                       });*/
+                        console.log(scope.title);
                     });
-                }
+                },
+                template: '<a class="btn btn-default btn-block"  ng-repeat="ti in title" >{{ti.title}}|{{ti.id}}</a>'
             };
-            
         });
 
-newsletterController.$inject = ['$scope', '$http', 'loadFactory', 'newsletterFactory', '$location'];
+newsletterController.$inject = ['$scope', '$http', 'loadFactory', 'newsletterFactory', '$location', '$timeout', '$q'];
 
-function newsletterController($scope, $http, loadFactory, newsletterFactory, $location) {
-  
+function newsletterController($scope, $http, loadFactory, newsletterFactory, $location, $timeout, $q) {
+
     //get data by id
     $scope.getDataBack = newsletterFactory.getDataBack;
+    var titArr = {};
     $scope.getNews = function () {
+        
         loadFactory.loadText();
         $location.path('/newsletter');
-        $http({
-            url: 'server/newsletter_title.php',
-            method: 'post',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (response, status) {
-            loadFactory.removeText();
-            loadFactory.addItem('<div class="newsletter-buttons col-md-3"></div>');
-            for (var i in response.title) {
-                $scope.datas = {};
-                $scope.datas.id= response.id[i];
-                $scope.datas.title= response.title[i];
-                loadFactory.addItemTo('.newsletter-buttons', '<newsletter-title data-id="'+response.id[i]+'" data-title="'+response.title[i]+'"></newsletter-title>');
-            }
+        $http.get('server/newsletter_title.php')
+                .success(function (response, status) {
+                    loadFactory.removeText();
+                    for (var i in response.title) {
+                            titArr[i] = {
+                                title:response.title[i],
+                                id:response.id[i]
+                            };
+                            $scope.title = titArr;
+                            console.log('got it!!');
+                                                   
+                    };
+                });
 
-        }).error(function (response, status) {
-            console.log('resp: ' + response + " status: " + status);
-        });
     };
 
 

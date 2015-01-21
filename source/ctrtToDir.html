@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="../bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var mod = angular.module('MyModule', []);
+
+            mod.service('SettingsService', function () {
+                return {
+                    'currency': 'INR',
+                    'precision': 2
+                };
+            });
+
+            mod.controller('SettingsController', ['$scope', 'SettingsService', function ($scope, settings) {
+                    $scope.settings = settings;
+
+                }]);
+
+            mod.controller('SalesController', ['$scope', function ($scope) {
+                    $scope.sales_data = new Array(30);
+                    for (var i = 0; i < 30; i++) {
+                        $scope.sales_data[i] = {
+                            'product_name': ('Product ' + i),
+                            'cost': Math.random() * 100
+                        }
+                    }
+                }]);
+
+
+            mod.directive('currencyDisplay', ['SettingsService', function (settings) {
+                    return {
+                        'restrict': 'A',
+                        'scope': {
+                            'amount': '=currencyDisplay'
+                        },
+                        'template': '<span>{{ settings.currency }} {{ amount | number:settings.precision }}</span>',
+                        'replace': true,
+                        'link': function (scope, element, attrs) {
+                            scope.settings = settings;
+                        }
+                    }
+                }]);
+
+        </script>
+    </head>
+    <body>
+        <div ng-app="MyModule">
+            <div ng-form="" ng-controller="SettingsController">
+                <h3>Settings</h3>
+                Please select currency: <select ng-options="currency for currency in ['INR', 'USD', 'EUR']" ng-model="settings.currency"></select><br/>
+                Please enter precision (digits after decimal): <input type="text" min="0" max="4" required="" ng-model="settings.precision" />
+            </div>
+
+            <hr />
+
+            <div ng-controller="SalesController">
+                <ul>
+                    <li ng-repeat="row in sales_data">{{ row.product_name}}: <span currency-display="row.cost"></span></li>
+                </ul>
+            </div>
+            <h3>Sales data</h3>
+
+        </div>
+
+
+    </body>
+</html>

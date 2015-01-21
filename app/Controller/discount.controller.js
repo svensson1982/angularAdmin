@@ -4,6 +4,7 @@ angular.module('app')
 discountController.$inject = ['$scope','$http','$timeout','loadFactory','discountService','$location'];
 
 function discountController($scope, $http, $timeout, loadFactory, discountService, $location){
+   $scope.getDiscount = discountService.getDiscount();
    loadFactory.loadText();
        $location.path('discounts');
    $http({
@@ -13,7 +14,8 @@ function discountController($scope, $http, $timeout, loadFactory, discountServic
    }).success(function(response, status){
        loadFactory.removeText();
        for(var i in response){
-        loadFactory.addItem('<div ng-click='+discountService.getDiscount(response[i].func)+'>'+response[i].item+'</div>');
+        loadFactory.addItem('<div>'+response[i].item+'</div>');
+        //+getDiscount(response[i].func)+'
        }
    }).error(function(response, status){
       console.log('response: '+response +' status '+ status);

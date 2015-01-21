@@ -1,0 +1,137 @@
+<!doctype html>
+<html ng-app="Demo" ng-controller="AppController">
+<head>
+	<meta charset="utf-8" />
+
+	<title>
+		Workflow Differences Between $scope.$watch() and Attributes.$observe() In AngularJS
+	</title>
+</head>
+<body>
+
+	<h1>
+		Workflow Differences Between $scope.$watch() and Attributes.$observe() In AngularJS
+	</h1>
+
+	<p bn-outer>
+		<!-- Inner directive will be injected dynamically. -->
+	</p>
+
+	<!-- Load jQuery and AngularJS. -->
+        <script src="../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="../bower_components/angular/angular.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+		// Create an application module for our demo.
+		var app = angular.module( "Demo", [] );
+
+
+		// -------------------------------------------------- //
+		// -------------------------------------------------- //
+
+
+		// Define the root-level controller for the application.
+		app.controller(
+			"AppController",
+			function( $scope ) {
+
+				$scope.foo = "bar";
+
+			}
+		);
+
+
+		// -------------------------------------------------- //
+		// -------------------------------------------------- //
+
+
+		// I compile and inject an instance of another directive at a later time.
+		app.directive(
+			"bnOuter",
+			function( $compile ) {
+
+				// I bind the UI events to the local scope.
+				function link( $scope, element, attributes ) {
+
+					var transclude = $compile( "<span bn-inner='test'>aWoot</span>" );
+
+					// After a brief timeout, clone and inject the compiled DOM element.
+					setTimeout(
+						function() {
+
+							transclude(
+								$scope,
+								function( clone ) {
+
+									element.append( clone );
+
+								}
+							);
+
+							// Tell AngularJS that a change has occurred (this will
+							// invoke various $watch() callbacks).
+							$scope.$digest();
+
+						},
+						250
+					);
+
+				}
+
+				// Return the directive configuration.
+				return({
+					link: link,
+					scope: true
+				});
+
+			}
+		);
+
+
+		// -------------------------------------------------- //
+		// -------------------------------------------------- //
+
+
+		// I am here to demonstate which callbacks get invoked.
+		app.directive(
+			"bnInner",
+			function( $compile ) {
+
+				// I bind the UI events to the local scope.
+				function link( $scope, element, attributes ) {
+
+					// Register an $observe callback.
+					attributes.$observe(
+						"bnInner",
+						function innerObserveFunction() {
+
+							console.log( "Inner $observe() fired." );
+
+						}
+					);
+
+					// Register a $watch callback.
+					$scope.$watch(
+						function innerWatchFunction() {
+
+							console.log( "Inner $watch() fired." );
+
+						}
+					);
+
+				}
+
+
+				// Return the directive configuration.
+				return({
+					link: link,
+					restrict: "A"
+				});
+
+			}
+		);
+
+	</script>
+
+</body>
+</html>

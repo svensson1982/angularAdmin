@@ -6,7 +6,7 @@ angular.module('app')
                         controller: "usersController"
                     })
                     .when("/newsletter", {
-                        /*templateUrl: "app/Template/newsletter.html",*/
+                        templateUrl: "app/Templates/newsletter.html",
                         controller: "newsletterController"
                     })
                     .when("/offer", {
