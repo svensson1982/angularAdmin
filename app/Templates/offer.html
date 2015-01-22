@@ -1,0 +1,16 @@
+<div class="row">
+<div class="col-md-8 table-responsive"> 
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>#</th><th>Offer Title</th><th>Offer Name</th><th>Offer Price</th>
+        </tr>
+        <tr offer-result ng-repeat="d in offerData">
+            <td offer-result title="{{d.offer_id}}" >{{d.offer_id}}</td>
+            <td offer-result  >{{d.offer_title}}</td>
+            <td offer-result  >{{d.offer_name}}</td>
+            <td offer-result  >{{d.offer_price}}</td>
+        </tr>
+
+    </table>
+</div>
+</div>

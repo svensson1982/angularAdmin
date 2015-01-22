@@ -36,10 +36,8 @@ function usersController($scope, $http, $location, $document, loadFactory){
             $scope.users = response.name;
             for(var i in response){
                     loadFactory.addItem('<div>'+response[i].name+'</div>');
-            }
-            
+            }            
             console.log('Users ajax success: '+status);
-            console.log(response);
         }).error(function(response,status,header){
             console.log(" response-> "+ response +" status-> "+ status +" header-> "+ header);
         });

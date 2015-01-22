@@ -10,7 +10,8 @@ angular.module('app')
                         controller: "newsletterController"
                     })
                     .when("/offer", {
-                        controller: "offerController"
+                        controller: "offerController",
+                        templateUrl: "app/Templates/offer.html"
                     })
                     .when("/discounts", {
                         controller: "discountsController"
@@ -22,8 +23,13 @@ angular.module('app')
                     .when("/promise", {
                         controller: "promiseController"
                     })
+                    .when("/todo", {
+                        templateUrl: "app/Templates/todo.html",
+                        controller: "todoController"
+                    })
                     .otherwise({
                         redirectTo: "/"
                     });
+                    console.log('config->' );
                     //$locationProvider.html5Mode(true).hashPrefix();  
         }]);

@@ -30,6 +30,12 @@ function admin($scope, $http, $location, $injector, angularLoad, loadFactory) {
     $injector.invoke(promiseController, this, {
         $scope: $scope
     });
+    $injector.invoke(todoController, this, {
+        $scope: $scope
+    });
+    $injector.invoke(autocompleteController, this, {
+        $scope: $scope
+    });
 
 
     $scope.getUrl = function (item) {
@@ -47,16 +53,25 @@ function admin($scope, $http, $location, $injector, angularLoad, loadFactory) {
             console.log('Unable to load...');
         });
     };
-
-
-/*
-          angularLoad.loadScript('app/Services/discount.service.js').then(function () {
-            console.log('loaded');
-        }).catch(function () {
-            console.log('Unable to load...');
+    //day
+    angularLoad.loadScript('app/Controller/day.controller.js').then(function () {
+        $injector.invoke(dayController, this, {
+            $scope: $scope
         });
+        console.log('loaded');
+    }).catch(function () {
+        console.log('Unable to load...');
+    });
 
- */
+
+    /*
+     angularLoad.loadScript('app/Services/discount.service.js').then(function () {
+     console.log('loaded');
+     }).catch(function () {
+     console.log('Unable to load...');
+     });
+     
+     */
 
 
     /*add user*/

@@ -26,8 +26,10 @@
         <script src="app/Controller/article.controller.js" type="text/javascript"></script>
         <script src="app/Controller/offer.controller.js" type="text/javascript"></script>
         <script src="app/Controller/adduser.controller.js" type="text/javascript"></script>
-        
+        <script src="app/Controller/autocomplete.controller.js" type="text/javascript"></script>
+        <script src="app/Controller/todo.controller.js" type="text/javascript"></script>
         <!-- Config -->
+        <script src="app/Config/run.js" type="text/javascript"></script>
         <script src="app/Config/config.js" type="text/javascript"></script>
         
         <!-- Factory -->        
@@ -40,7 +42,7 @@
     </head>
     <body>
         <div class="row">    
-            <div ng-controller="admin" data-ng-init="getMenu()">
+            <div ng-controller="admin" data-ng-init="getMenu();">
                 <div class="col-md-2 navigation">
                     <ul class="row">
                         <li class="loggedin-area col-md-10">
@@ -73,9 +75,16 @@
                             <i class="fa fa-pencil"></i>
                         <promise-item></promise-item>                            
                         </li>
+                        <li>
+                            <i class="fa fa-pencil"></i>
+                            <todo-list></todo-list>                            
+                        </li>
                     </ul>                 
                 </div>
-                <div class="col-md-10 top-menu hidden-xs hidden-sm"></div>
+                <div class="col-md-10 top-menu hidden-xs hidden-sm">
+                    <div class="search" ng-include src="'app/Templates/autocomplete.html'"></div>
+                    <div class="day" display-day day-data="day">{{day}}</div>
+                </div>
                 <div class="col-md-10 result"></div>
 
                 <div ng-view></div>

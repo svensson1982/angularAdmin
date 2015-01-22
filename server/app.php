@@ -5,10 +5,18 @@ $conn->set_charset("utf8");
 $query = "SELECT * FROM portal.offer" or die("Error in the " . mysqli_error($conn));
 $res = $conn->query($query);
 
-echo '<table class="table table-striped table-bordered">
-<tr><th>#</th><th>Offet Title</th><th>Offer Name</th><th>Offer Price</th></tr>';
+$json = array();
+$json['offer_id'] = "";        
+$json['offer_title'] = "";        
+$json['offer_name'] = "";        
+$json['offer_price'] = "";        
+        
 
 while($row = mysqli_fetch_assoc($res)){
-    echo "<tr><td>".$row['offer_id'] ."</td><td>".$row['offer_title'] ."</td><td>".  $row['offer_name'] ."</td><td>".  $row['offer_price'] . "</td></tr>";
+    
+        $json['offer_id'][] .= $row['offer_id'];
+        $json['offer_title'][] .= $row['offer_title'];
+        $json['offer_name'][] .= $row['offer_name'];
+        $json['offer_price'][] .= $row['offer_price'];
 }
-echo '</table>';
+echo json_encode($json, JSON_FORCE_OBJECT);

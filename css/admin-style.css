@@ -47,8 +47,21 @@ div.newsletter-buttons{
 .top-menu{
     height: 50px;
     background: #222;
+    display: inline-block;
 }
 
+.day{
+    color: #fff;
+    width: 200px;
+    float: right;
+    margin-top: 15px;
+}
+
+.search{
+    margin-top: 8px;
+    width: 350px;
+    display: inline-block;
+}
 /*********** Result ***********/
 
 .loading{
@@ -58,4 +71,24 @@ div.newsletter-buttons{
 
 .result{
     /*background: #ccc;*/
+}
+
+.odd{
+    background: #ccc;
+}
+
+.even{
+    background: #eee;    
+}
+
+.sample-show-hide {
+  padding:10px;
+  background:white;
+  opacity:0;
+}
+
+.sample-show{
+      -webkit-transition:all linear 1.5s;
+  transition:all linear 1.5s;
+  opacity:1;
 }

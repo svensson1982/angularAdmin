@@ -1,4 +1,4 @@
-/*angular.module('app')
-        .run(function($rootScope, $log){
-            $rootScope.$log = $log;
-        });*/
+angular.module('app')
+        .run(function(){
+            console.log('run->' );
+        });

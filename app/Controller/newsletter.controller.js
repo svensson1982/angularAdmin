@@ -31,7 +31,7 @@ angular.module('app')
                     });
                     scope.getnews = function(d){alert(d);};//scope.getData();
                 },
-                template: '<a class="news-btn btn btn-default btn-block" ng-repeat="ti in title" ng-click="getnews({{ti.id}});" data-id="{{ti.id}}" >{{ti.title}}</a>'
+                template: '<a class="news-btn btn btn-default btn-block" ng-repeat="ti in title" ng-click="getnews({{ti.id}});" data-id="{{ti.id}}" >{{$index+1+"."}}{{ti.title}}</a>'
                 //invalid key getnews ng-click
             };
         }]);
