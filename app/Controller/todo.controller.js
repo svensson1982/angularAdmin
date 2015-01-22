@@ -3,6 +3,10 @@ angular.module('app')
         .directive('todoList', function () {
             return{
                 restrict: 'EA',
+                /*scope: {
+                    actionn: "=",
+                    completet: "="
+                },*/
                 link: function (scope, element) {
                     element.on('click', function () {
                         scope.getPath2();
@@ -27,6 +31,7 @@ function todoController($scope, $location, loadFactory) {
             {action: "Buy flowers", complete: false},
             {action: "Call family", complete: false}];
         loadFactory.removeText();
+        console.log("todo");
     };
     
         

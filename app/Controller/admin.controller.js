@@ -33,9 +33,9 @@ function admin($scope, $http, $location, $injector, angularLoad, loadFactory) {
     $injector.invoke(todoController, this, {
         $scope: $scope
     });
-    $injector.invoke(autocompleteController, this, {
+    /*$injector.invoke(autocompleteController, this, {
         $scope: $scope
-    });
+    });*/
 
 
     $scope.getUrl = function (item) {

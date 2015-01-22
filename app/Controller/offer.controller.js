@@ -15,9 +15,13 @@ angular.module('app')
         })
         .directive('offerResult', function () {
             return{
-                restrict: 'E',
+                restrict: 'A',
+                replace: true,
                 scope: {
-                    title: "@"
+                    id: "@",
+                    title: "=",
+                    name: "=",
+                    price: "="
                 }
             };
         });

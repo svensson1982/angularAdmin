@@ -20,6 +20,10 @@
 .menuitems, .menuitems a{
     color: #fff;
 }
+.menuitems li:hover{
+    transition: color 0.7s ease;
+    color: #000;
+}
 
 .resutl ul{
 	list-style-type: none;
@@ -36,6 +40,8 @@
 .loggedin-area p{
     float: left;
     color: #fff;
+    font-weight: 800;
+    margin-top: 10px;
 }
 
 div.newsletter-buttons{

@@ -13,16 +13,16 @@ angular.module('app')
                         controller: "offerController",
                         templateUrl: "app/Templates/offer.html"
                     })
-                    .when("/discounts", {
+                    /*.when("/discounts", {
                         controller: "discountsController"
-                    })
+                    })*/
                     .when("/adduser", {
                         templateUrl: "app/Templates/adduser.html",
                         controller: "addUserController"
                     })
-                    .when("/promise", {
+                    /*.when("/promise", {
                         controller: "promiseController"
-                    })
+                    })*/
                     .when("/todo", {
                         templateUrl: "app/Templates/todo.html",
                         controller: "todoController"
