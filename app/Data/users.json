@@ -2,51 +2,51 @@
     {
         "name": "John",
         "age": 25,
-        "gender": "boy"
+        "right": "Admin"
     },
     {
         "name": "Jessie",
         "age": 30,
-        "gender": "girl"
+        "right": "Author"
     },
     {
         "name": "Johanna",
         "age": 28,
-        "gender": "girl"
+        "right": "Writer"
     },
     {
         "name": "Joy",
         "age": 15,
-        "gender": "girl"
+        "right": "IT Admin"
     },
     {
         "name": "Mary",
         "age": 28,
-        "gender": "girl"
+        "right": "Supervisor"
     },
     {
         "name": "Peter",
         "age": 95,
-        "gender": "boy"
+        "right": "Author"
     },
     {
         "name": "Sebastian",
         "age": 50,
-        "gender": "boy"
+        "right": "Author"
     },
     {
         "name": "Erika",
         "age": 27,
-        "gender": "girl"
+        "right": "Writer"
     },
     {
         "name": "Patrick",
         "age": 40,
-        "gender": "boy"
+        "right": "Writer"
     },
     {
         "name": "Samantha",
         "age": 60,
-        "gender": "girl"
+        "right": "Writer"
     }
 ]

@@ -1,45 +1,41 @@
 angular.module('app')
         .controller('usersController', usersController);
-        angular.module('app').directive('userItem', function(){
-            return{
-                restrict: 'E',
-                /*scope:{
-                    info:'='
-                },*/
-                link: function(scope, element){
-                    element.on('click', function(){
-                        console.log('clicked');
-                        scope.getUsers();
-                        scope.usersPath();
-                    });
-                },
-                template: 'Felhasználók'
-            };
-        });
-usersController.$inject = ['$scope','$http', '$location', '$document','loadFactory'];
-
-function usersController($scope, $http, $location, $document, loadFactory){
-    $scope.usersPath = function(){
-        $location.path('/users');
+angular.module('app').directive('userItem', function () {
+    return{
+        restrict: 'E',
+        link: function (scope, element) {
+            element.on('click', function () {
+                console.log('clicked users');
+                scope.getUsers();
+            });
+        },
+        template: 'Felhasználók'
     };
-    $scope.users = "";
-    $scope.getUsers = function(){
-       //Loading... from load.factory 
-       loadFactory.loadText();
-        $http({
-            url:'app/Data/users.json',
-            method: 'post',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(response, status){
-            //remove loading...
-            loadFactory.removeText();
-            $scope.users = response.name;
-            for(var i in response){
-                    loadFactory.addItem('<div>'+response[i].name+'</div>');
-            }            
-            console.log('Users ajax success: '+status);
-        }).error(function(response,status,header){
-            console.log(" response-> "+ response +" status-> "+ status +" header-> "+ header);
+});
+usersController.$inject = ['$scope', '$http', '$location', 'loadFactory'];
+
+function usersController($scope, $http, $location, loadFactory) {
+    var userData = {};
+    $scope.getUsers = function () {
+
+        $location.path('/users');
+        loadFactory.loadText();
+        $http.get('app/Data/users.json')
+                .success(function (response, status) {
+                    //remove loading...
+                    loadFactory.removeText();
+                    for (var i in response) {
+                        userData[i] = {
+                            username: response[i].name,
+                            userage: response[i].age,                            
+                            userright: response[i].right                            
+                        };
+                        $scope.users = userData;
+                    }
+
+                    console.log('Users ajax success: ' + status);
+                }).error(function (response, status, header) {
+            console.log(" response-> " + response + " status-> " + status + " header-> " + header);
         });
     };
 }

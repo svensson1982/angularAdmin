@@ -18,7 +18,7 @@ angular.module('app')
                 restrict: 'A',
                 replace: true,
                 scope: {
-                    id: "@",
+                    id: "=",
                     title: "=",
                     name: "=",
                     price: "="

@@ -3,19 +3,24 @@ angular.module('app')
               
            $routeProvider
                     .when('/users', {         
+                        templateUrl: "app/Templates/users.html",
                         controller: "usersController"
                     })
                     .when("/newsletter", {
                         templateUrl: "app/Templates/newsletter.html",
                         controller: "newsletterController"
                     })
+                    .when("/newsletter/:newsID", {
+                        templateUrl: "app/Templates/newsletterResult.html",
+                        controller: "newsletterController"
+                    })
                     .when("/offer", {
                         controller: "offerController",
                         templateUrl: "app/Templates/offer.html"
                     })
-                    /*.when("/discounts", {
+                    .when("/discounts", {
                         controller: "discountsController"
-                    })*/
+                    })
                     .when("/adduser", {
                         templateUrl: "app/Templates/adduser.html",
                         controller: "addUserController"
@@ -31,5 +36,5 @@ angular.module('app')
                         redirectTo: "/"
                     });
                     console.log('config->' );
-                    //$locationProvider.html5Mode(true).hashPrefix();  
+                   //$locationProvider.html5Mode(true);//.hashPrefix();  
         }]);
