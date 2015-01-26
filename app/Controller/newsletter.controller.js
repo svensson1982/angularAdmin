@@ -15,50 +15,52 @@ angular.module('app')
             return{
                 restrict: 'EA',
                 replace: true,
+                transclude: true,
                 scope: {
                     dataId: '=',
                     title: '=',
                     getData: "&"
                 },
-                link: function (scope, element, attrs) {
-                    /*scope.$watch(function (newVal, oldVal) {
-                     angular.forEach(scope.title,function(val, key){                          
-                     console.log("dynamic2" + scope.title);
-                     element.html(val); 
-                     });
-                     });*/
-                    /*scope.getnews = function (d) {
-                     alert(d);
-                     };*/
-                },
-                template: '<a class="news-btn btn btn-default btn-block" ng-repeat="ti in title" ng-click="getData({{ti.id}});" data-id="{{ti.id}}" >{{$index+1+"."}}{{ti.title}}</a>'
-                        //invalid key getnews ng-click
-            };
-        })
-        .directive('newsResult', function () {
-            return{
-                restrict: 'E',
-                // transclude: true,
-                scope: true,
-                templateUrl: 'newsletterResult.html',
-                compile: function (tElement, tAttrs, transcludeFn) {
+                /*compile: function (tElement, tAttrs, transcludeFn) {
                     return function (scope, el, tAttrs) {
-                        transcludeFn(scope, function cloneConnectFn(cElement) {
-                            tElement.after('<div>result</div>').after(cElement);
+                        tElement.on('click', function () {
+                            transcludeFn(scope, function cloneConnectFn(cElement) {
+                                tElement.after('<div>result</div>').after(cElement);
+                            });
+                            console.log('add something');
                         });
                     };
-                }
+                },*/
+                link: function(scope,elem){
+                    elem.on('click', function(){
+                       var news = elem.find('news-result');
+                       news.append(scope.content);
+                       console.log('news');
+                    });
+                },
+                template: '<a class="news-btn btn btn-default btn-block" ng-repeat="ti in title" ng-click="newsID(ti.id);" data-id="{{ti.id}}" >{{$index+1+". " + ti.title}}</a>'
             };
         });
+/*.directive('newsResult', function () {
+ return{
+ restrict: 'E',
+ // transclude: true,
+ scope: true,
+ templateUrl: 'newsletterResult.html',
+ compile: function (tElement, tAttrs, transcludeFn) {
+ return function (scope, el, tAttrs) {
+ transcludeFn(scope, function cloneConnectFn(cElement) {
+ tElement.after('<div>result</div>').after(cElement);
+ });
+ };
+ }
+ };
+ });*/
 
 newsletterController.$inject = ['$scope', '$http', 'loadFactory', 'newsletterFactory', '$location', '$timeout', '$q'];
-
 function newsletterController($scope, $http, loadFactory, newsletterFactory, $location, $timeout, $q) {
     $scope.newsl = "newsletter controller";
-    //get data by id
-    $scope.getData = function (d) {
-        alert("id->" + d);
-    };
+
     $scope.getDataBack = newsletterFactory.getDataBack;
     var titArr = {};
     $scope.getNews = function () {
@@ -79,20 +81,23 @@ function newsletterController($scope, $http, loadFactory, newsletterFactory, $lo
                     ;
                 });
     };
-
-    $scope.newsID = function () {
-
-        $http.get('server/newsletter_data.php')
-                .success(function (response, status) {
-                    for (var i in response.title) {
+    $scope.newsID = function (btnId) {
+        console.log(btnId);
+        $http.post('./server/newsletter_data.php',{'id': 12327} // pass in data as strings
+            //headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        ).success(function (response, status) {
+                    for (var i in response.table_content) {
                         titArr[i] = {
-                            title: response.title[i],
-                            id: response.id[i]
+                            table_begin: response.table_begin[i],
+                            table_content: response.table_content[i],
+                            table_end: response.table_end[i]
                         };
-                        $scope.title = titArr;
-                        console.log('got it!!');
-                    }
-                    ;
+                        $scope.content = titArr;
+                        console.log('response-> '+ response);
+                        console.log('status-> '+ status);
+                    };
+                }).error(function(resp, stat){
+                    console.log("response-> "+resp+ " stat-> "+ stat);
                 });
     };
 }
